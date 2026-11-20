@@ -1,12 +1,23 @@
 {
-  "name": "@your-scope/gutter-apex",
+  "name": "@gutter-ade/gutter-apex",
   "version": "0.1.0",
   "description": "Apex syntax coloring for Gutter, with SOQL and SOSL inside brackets, and the Apex language server.",
   "keywords": ["gutter-extension", "apex", "salesforce"],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gutter-ADE/gutter-apex.git"
+  },
+  "homepage": "https://github.com/Gutter-ADE/gutter-apex#readme",
+  "bugs": {
+    "url": "https://github.com/Gutter-ADE/gutter-apex/issues"
+  },
   "files": [
     "gutter-extension.json",
     "grammars",
     "README.md"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
