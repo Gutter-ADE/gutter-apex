@@ -7,7 +7,6 @@
   "files": [
     "gutter-extension.json",
     "grammars",
-    "README.md",
-    "server"
+    "README.md"
   ]
 }

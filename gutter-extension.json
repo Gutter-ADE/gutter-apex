@@ -30,7 +30,18 @@
         "apex.jorje.lsp.ApexLanguageServerLauncher"
       ],
       "rootMarkers": ["sfdx-project.json"],
-      "initializationOptions": { "enableEmbeddedSoqlCompletion": false }
+      "initializationOptions": { "enableEmbeddedSoqlCompletion": false },
+      "install": [
+        {
+          "download": {
+            "any": {
+              "url": "https://raw.githubusercontent.com/forcedotcom/salesforcedx-vscode/5a804a968fc7412186121d7edc1f4d4fd142569f/packages/salesforcedx-vscode-apex/jars/apex-jorje-lsp.jar",
+              "sha256": "4477f6c5e4c79bb7fe13e77cbcd77b25e0d4f5b730a7b4036b1031c274221d55"
+            }
+          },
+          "to": "apex-jorje-lsp.jar"
+        }
+      ]
     }
   ],
   "settings": [
@@ -39,7 +50,7 @@
       "key": "jarPath",
       "label": "apex-jorje-lsp.jar",
       "type": "path",
-      "default": "${extensionDir}/server/apex-jorje-lsp.jar"
+      "default": "${serverDir}/apex-jorje-lsp.jar"
     },
     { "key": "maxHeap", "label": "Server memory limit", "type": "text", "default": "1g" }
   ]

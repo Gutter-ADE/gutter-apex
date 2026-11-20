@@ -1,4 +1,2 @@
 node_modules/
 *.tgz
-# The jar is never committed; see README.md.
-server/apex-jorje-lsp.jar

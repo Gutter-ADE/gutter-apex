@@ -33,9 +33,13 @@ Hover docs (ApexDoc) and Ctrl+click / Cmd+click to a definition come from Salesf
 **Needs:**
 
 - **Java.** Gutter doesn't install it. Use a JDK Salesforce supports for its Apex extension (Java 11, 17, or 21 at the time of writing; check the Salesforce Extension Pack's requirements). Put `java` on `PATH`, or set **Java** in Settings > Extensions > Apex to the full path of `java`.
-- **The jar.** It isn't in this folder, and Gutter can't download it. Get `apex-jorje-lsp.jar` from the Salesforce Extension Pack: install the "Salesforce Apex" extension (`salesforce.salesforcedx-vscode-apex`) in VS Code, or download its `.vsix` from the Marketplace, rename it to `.zip`, and take `extension/dist/apex-jorje-lsp.jar`. Check the license allows your use before you copy it.
-- **Where it goes.** Put the jar in `server/` in this folder (`server/apex-jorje-lsp.jar`, which is the default and is ignored by git), or put it anywhere and set **apex-jorje-lsp.jar** in Settings > Extensions > Apex to its path. Until one of them exists, opening an Apex file says "Set apex-jorje-lsp.jar in Settings > Extensions > Apex".
+- **The jar.** Gutter downloads it for you. Installing this extension from Browse shows a confirmation naming the download, and installing runs it. For a development folder, use **Install server** on the Apex row in Settings > Extensions. Until it's installed, opening an Apex file says the server isn't installed. The download comes from Salesforce's own repository, pinned to one commit (`5a804a9`, October 2026) and checked against its SHA-256, and goes to Gutter's data folder, not into this folder. **Reinstall server** on the same row downloads it again.
+- **Your own jar.** Set **apex-jorje-lsp.jar** in Settings > Extensions > Apex to a jar's path (**Browse…** picks one) to use it instead, such as a newer one from the Salesforce Extension Pack. Gutter then starts that jar whether or not the server is installed. Clear the setting to go back to the downloaded one.
 - **Memory.** **Server memory limit** is the Java heap, `1g` by default.
+
+**The jar's license.** `apex-jorje-lsp.jar` is Salesforce's. It sits in `packages/salesforcedx-vscode-apex/jars/` of [forcedotcom/salesforcedx-vscode](https://github.com/forcedotcom/salesforcedx-vscode), whose `LICENSE.txt` is the BSD 3-Clause license (Copyright (c) Salesforce.com, inc.). It also bundles third-party libraries (among them Guava, Guice, LSP4J, Xtend, Logback, ANTLR, SnakeYAML), whose license files are inside the jar under `META-INF/`. This extension doesn't redistribute the jar: the package holds no copy, and Gutter downloads it from Salesforce's repository. This extension isn't made or endorsed by Salesforce.
+
+**Updating the pinned jar.** Find the newest commit that changed the jar (`gh api "repos/forcedotcom/salesforcedx-vscode/commits?path=packages/salesforcedx-vscode-apex/jars/apex-jorje-lsp.jar&sha=develop&per_page=1"`), put that commit in the `url` in `gutter-extension.json`, download the file from that URL, and set `sha256` to its hash (`certutil -hashfile apex-jorje-lsp.jar SHA256` on Windows, `shasum -a 256 apex-jorje-lsp.jar` elsewhere). Changing the step makes Gutter offer **Reinstall server** to everyone who has it installed.
 
 What Gutter doesn't send, because it only uses hover and definitions: no completion, diagnostics, or semantic errors (`enableSemanticErrors` stays off), and no embedded SOQL completion. The server may still write its own working files into the project (Salesforce's tools use `.sfdx/`); add that folder to the project's `.gitignore` so it never shows in Changes.
 
@@ -48,7 +52,5 @@ Notes on anything colored wrong in real files go here. Known from the design:
 - Nested brackets inside a query, such as a bind expression like `:list[0]`, end the query early.
 
 ## Publishing
-
-The jar ships in the package only after you've checked its license allows redistribution: put it in `server/` and publish (`package.json`'s `files` lists `server`). Until then the package has no jar and each user places one.
 
 `package.json` uses the placeholder scope `@your-scope`. To publish, swap in your own scope, add a `repository` field pointing at this repository's remote, run `npm run check-extension` on it from Gutter, and run `npm publish --access public` from this folder; keep `version` the same in `package.json` and `gutter-extension.json`. The `gutter-extension` keyword is what lists it in Gutter's Browse tab. Then add your scope under Browse > Trusted publishers.
