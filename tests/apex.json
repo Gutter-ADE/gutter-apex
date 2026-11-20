@@ -1,0 +1,40 @@
+[
+  {
+    "text": "PUBLIC With Sharing CLASS Foo {}\ninsert x; UPSERT y; Merge a b;",
+    "has": [
+      ["keyword", "PUBLIC"], ["keyword", "With"], ["keyword", "Sharing"], ["keyword", "CLASS"],
+      ["keyword", "insert"], ["keyword", "UPSERT"], ["keyword", "Merge"]
+    ]
+  },
+  { "text": "without sharing", "has": [["keyword", "without"]] },
+  { "text": "inherited sharing", "has": [["keyword", "inherited"]] },
+  {
+    "text": "trigger T on Account (before insert, after update) {}",
+    "has": [
+      ["keyword", "trigger"], ["keyword", "on"], ["keyword", "before"],
+      ["keyword", "insert"], ["keyword", "after"], ["keyword", "update"]
+    ]
+  },
+  {
+    "text": "@IsTest\nString s = 'it\\'s'; // c\n/* a\nb */ Integer n = 0x1F + 2.5e3; System.debug(s);",
+    "has": [
+      ["meta", "@IsTest"], ["string", "'it\\'s'"], ["comment", "// c"], ["comment", "b */"],
+      ["number", "0x1F"], ["number", "2.5e3"], ["typeName", "System"], ["typeName", "Integer"]
+    ]
+  },
+  {
+    "text": "x = [select Id from Account where Name = :term and Id in :ids limit 5];",
+    "has": [
+      ["keyword", "select"], ["keyword", "from"], ["keyword", "where"], ["keyword", "and"],
+      ["keyword", "in"], ["keyword", "limit"], ["atom", ":term"], ["atom", ":ids"]
+    ]
+  },
+  { "text": "a = [SELECT Id FROM X]; return b;", "has": [["keyword", "return"]] },
+  {
+    "text": "[FIND 'acme' IN NAME FIELDS RETURNING Account(Id)]",
+    "has": [
+      ["keyword", "FIND"], ["keyword", "IN"], ["keyword", "NAME"], ["keyword", "FIELDS"], ["keyword", "RETURNING"]
+    ]
+  },
+  { "text": "a[0] = list[x];", "lacks": [["keyword", "select"], ["keyword", "list"]] }
+]

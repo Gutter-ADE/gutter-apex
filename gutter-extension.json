@@ -1,0 +1,46 @@
+{
+  "gutter": 1,
+  "id": "apex",
+  "name": "Apex",
+  "version": "0.1.0",
+  "languages": [
+    {
+      "id": "apex",
+      "name": "Apex",
+      "extensions": ["cls", "trigger", "apex"],
+      "filenames": [],
+      "grammar": "grammars/apex.json",
+      "lineComment": "//",
+      "blockComment": ["/*", "*/"]
+    }
+  ],
+  "servers": [
+    {
+      "id": "apex-jorje",
+      "languages": ["apex"],
+      "command": [
+        "${setting:javaPath}",
+        "-cp",
+        "${setting:jarPath}",
+        "-Xmx${setting:maxHeap}",
+        "-Ddebug.internal.errors=true",
+        "-Ddebug.semantic.errors=false",
+        "-Ddebug.completion.statistics=false",
+        "-Dlwc.typegeneration.disabled=true",
+        "apex.jorje.lsp.ApexLanguageServerLauncher"
+      ],
+      "rootMarkers": ["sfdx-project.json"],
+      "initializationOptions": { "enableEmbeddedSoqlCompletion": false }
+    }
+  ],
+  "settings": [
+    { "key": "javaPath", "label": "Java", "type": "path", "default": "java" },
+    {
+      "key": "jarPath",
+      "label": "apex-jorje-lsp.jar",
+      "type": "path",
+      "default": "${extensionDir}/server/apex-jorje-lsp.jar"
+    },
+    { "key": "maxHeap", "label": "Server memory limit", "type": "text", "default": "1g" }
+  ]
+}

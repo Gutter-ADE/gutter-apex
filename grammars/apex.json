@@ -1,0 +1,38 @@
+{
+  "start": [
+    { "regex": "//.*", "token": "comment" },
+    { "regex": "/\\*", "token": "comment", "next": "blockComment" },
+    { "regex": "'(?:[^'\\\\]|\\\\.)*'", "token": "string" },
+    { "regex": "'(?:[^'\\\\]|\\\\.)*$", "token": "string" },
+    { "regex": "@[A-Za-z_]\\w*", "token": "meta" },
+    { "regex": "\\[(?=\\s*(?:select|find)\\b)", "flags": "i", "token": "punctuation", "push": "query" },
+    { "regex": "(?:0x[0-9a-f]+|(?:\\d+\\.?\\d*|\\.\\d+)(?:e[-+]?\\d+)?)[ld]?\\b", "flags": "i", "token": "number" },
+    { "regex": "(?:true|false|null)\\b", "flags": "i", "token": "atom" },
+    { "regex": "(?:with|without|inherited)(?=\\s+sharing\\b)", "flags": "i", "token": "keyword" },
+    { "regex": "(?:abstract|break|catch|class|continue|do|else|enum|extends|final|finally|for|get|global|if|implements|instanceof|interface|new|on|override|private|protected|public|return|set|sharing|static|super|switch|testmethod|this|throw|transient|trigger|try|virtual|void|webservice|when|while)\\b", "flags": "i", "token": "keyword" },
+    { "regex": "(?:insert|update|upsert|delete|undelete|merge)\\b", "flags": "i", "token": "keyword" },
+    { "regex": "(?:before|after)(?=\\s+(?:insert|update|delete|undelete)\\b)", "flags": "i", "token": "keyword" },
+    { "regex": "(?:System|Database|Schema|Test|Limits|Trigger|UserInfo|Messaging|ApexPages|Approval|EncodingUtil|Crypto|JSON|Math|Http|HttpRequest|HttpResponse|Url|Pattern|Matcher|Type|Id|String|Integer|Long|Double|Decimal|Boolean|Date|Datetime|Time|Blob|Object|SObject|List|Set|Map|Iterable|Iterator|Exception|DmlException|QueryException|Savepoint|SObjectType|SObjectField|Queueable|Schedulable|Batchable|Callable|PageReference|Label|Site|Auth|Process)\\b", "token": "type" },
+    { "regex": "[A-Z]\\w*", "token": "type" },
+    { "regex": "[a-z_]\\w*(?=\\s*\\()", "flags": "i", "token": "variable" },
+    { "regex": "[a-z_]\\w*", "flags": "i", "token": "variable" },
+    { "regex": "[-+*/%=<>!&|^~?:]+", "token": "operator" },
+    { "regex": "[{}()\\[\\];,.]", "token": "punctuation" }
+  ],
+  "blockComment": [
+    { "regex": ".*?\\*/", "token": "comment", "next": "start" },
+    { "regex": ".*", "token": "comment" }
+  ],
+  "query": [
+    { "regex": "\\]", "token": "punctuation", "pop": true },
+    { "regex": "'(?:[^'\\\\]|\\\\.)*'", "token": "string" },
+    { "regex": "'(?:[^'\\\\]|\\\\.)*$", "token": "string" },
+    { "regex": ":[A-Za-z_]\\w*(?:\\.[A-Za-z_]\\w*)*", "token": "atom" },
+    { "regex": "(?:select|find|from|where|limit|offset|order\\s+by|group\\s+by|having|with|using|scope|returning|in|inactive|and|or|not|like|includes|excludes|asc|desc|nulls|first|last|all|rows|for|view|update|referencing|tracking|viewstat|security_enforced|user_mode|system_mode|typeof|then|when|else|end|toLabel|convertCurrency|format|count|count_distinct|sum|avg|min|max|fields|name|email|phone|sidebar|division|network|snippet|highlight|metadata|data\\s+category|above|below|at|above_or_below|true|false|null)\\b", "flags": "i", "token": "keyword" },
+    { "regex": "(?:today|yesterday|tomorrow|last_week|this_week|next_week|last_month|this_month|next_month|(?:last|next)_n_(?:days|weeks|months)|this_year|last_year|next_year)\\b", "flags": "i", "token": "atom" },
+    { "regex": "\\d[\\w.:+-]*", "token": "number" },
+    { "regex": "[A-Za-z_]\\w*", "token": "variable" },
+    { "regex": "[-+*/%=<>!&|^~?]+", "token": "operator" },
+    { "regex": "[(),.]", "token": "punctuation" }
+  ]
+}

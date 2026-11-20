@@ -1,0 +1,13 @@
+{
+  "name": "@your-scope/gutter-apex",
+  "version": "0.1.0",
+  "description": "Apex syntax coloring for Gutter, with SOQL and SOSL inside brackets, and the Apex language server.",
+  "keywords": ["gutter-extension", "apex", "salesforce"],
+  "license": "MIT",
+  "files": [
+    "gutter-extension.json",
+    "grammars",
+    "README.md",
+    "server"
+  ]
+}
