@@ -53,4 +53,4 @@ Notes on anything colored wrong in real files go here. Known from the design:
 
 ## Publishing
 
-`package.json` uses the placeholder scope `@your-scope`. To publish, swap in your own scope, add a `repository` field pointing at this repository's remote, run `npm run check-extension` on it from Gutter, and run `npm publish --access public` from this folder; keep `version` the same in `package.json` and `gutter-extension.json`. The `gutter-extension` keyword is what lists it in Gutter's Browse tab. Then add your scope under Browse > Trusted publishers.
+Published to npm as `@gutter-ade/gutter-apex`. To release, keep `version` the same in `package.json` and `gutter-extension.json`, run `npm run check-extension` on it from Gutter, confirm `npm pack --dry-run` lists only the files you mean to ship, and run `npm publish` from this folder (`publishConfig` makes it public). The `gutter-extension` keyword is what lists it in Gutter's Browse tab; add `gutter-ade` under Browse > Trusted publishers to see it without showing all publishers.
